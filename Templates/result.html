@@ -1,0 +1,40 @@
+<tr>
+    <th>DNS Info</th>
+    <td>
+        {% if result.dns %}
+            {% for key, val in result.dns.items() %}
+                <div><strong>{{ key }}:</strong>
+                    {% if val is iterable and not val|string %}
+                        {{ val | join(', ') }}
+                    {% else %}
+                        {{ val }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            N/A
+        {% endif %}
+    </td>
+</tr>
+
+<tr>
+    <th>SSL Info</th>
+    <td>
+        {% if result.ssl %}
+            {% if result.ssl.issuer %}
+                <div><strong>Issuer:</strong> {{ result.ssl.issuer[4][0][1] }}</div>
+            {% endif %}
+            {% if result.ssl.subject %}
+                <div><strong>Subject:</strong> {{ result.ssl.subject[0][0][1] }}</div>
+            {% endif %}
+            {% if result.ssl.valid_from %}
+                <div><strong>Valid From:</strong> {{ result.ssl.valid_from }}</div>
+            {% endif %}
+            {% if result.ssl.valid_to %}
+                <div><strong>Valid To:</strong> {{ result.ssl.valid_to }}</div>
+            {% endif %}
+        {% else %}
+            N/A
+        {% endif %}
+    </td>
+</tr>
